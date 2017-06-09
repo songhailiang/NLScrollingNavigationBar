@@ -160,8 +160,7 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
                 self.scrollWithDelta(-self.fullNavbarHeight, ignoreDelay: true)
                 visibleViewController.view.setNeedsLayout()
                 if navigationBar.isTranslucent {
-                    let currentOffset = scrollableView.contentOffset
-                    scrollableView.contentOffset = CGPoint(x: currentOffset.x, y: currentOffset.y - self.navbarHeight)
+                    scrollableView.contentOffset.y -= self.navbarHeight
                 }
             }
             if animated {
@@ -191,8 +190,7 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
                 self.scrollWithDelta(self.fullNavbarHeight)
                 visibleViewController.view.setNeedsLayout()
                 if navigationBar.isTranslucent {
-                    let currentOffset = scrollableView.contentOffset
-                    scrollableView.contentOffset = CGPoint(x: currentOffset.x, y: currentOffset.y + self.navbarHeight)
+                    scrollableView.contentOffset.y += self.navbarHeight
                 }
             }) { _ in
                 self.state = .collapsed
@@ -218,10 +216,10 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
     
     private func scrollWithDelta(_ delta: CGFloat, ignoreDelay: Bool = false) {
         
-        guard let scrollableView = scrollView else { return }
+        guard let scrollableView = scrollView, let navigationBar = navigationController?.navigationBar else { return }
         
         var scrollDelta = delta
-        let frame = navigationController?.navigationBar.frame ?? .zero
+        let frame = navigationBar.frame
         
         // View scrolling up, hide the navbar
         if scrollDelta > 0 {

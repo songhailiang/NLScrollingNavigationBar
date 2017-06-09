@@ -28,7 +28,7 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationController?.nl_showNavigationBar()
+        navigationController?.nl_showNavigationBar(animated: false)
         return true
     }
 
