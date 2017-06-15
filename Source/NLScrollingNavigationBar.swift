@@ -117,7 +117,7 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
     
     // MARK: - GestureRecognizer
     
-    func handlePan(_ gesture: UIPanGestureRecognizer) {
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         if gesture.state != .failed {
             if let superview = self.scrollView?.superview {
                 let translation = gesture.translation(in: superview)
@@ -369,10 +369,10 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
         // Hide all the possible titles
         navigationItem.titleView?.alpha = alpha
         navigationBar.tintColor = navigationBar.tintColor.withAlphaComponent(alpha)
-        if let titleColor = navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor {
-            navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = titleColor.withAlphaComponent(alpha)
+        if let titleColor = navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] as? UIColor {
+            navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = titleColor.withAlphaComponent(alpha)
         } else {
-            navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = UIColor.black.withAlphaComponent(alpha)
+            navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = UIColor.black.withAlphaComponent(alpha)
         }
         
         // Hide all possible button items and navigation items
