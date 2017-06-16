@@ -47,7 +47,15 @@ public extension UINavigationController {
         proxy.scrollView = scrollView
         proxy.followers = followers
         proxy.delegate = delegate
+        proxy.navBarScrollable = true
         //        self.proxy = proxy
+    }
+    
+    public func nl_stopFollowScrollView(showingNavBar: Bool = true) {
+        if showingNavBar {
+            nl_showNavigationBar()
+        }
+        proxy.navBarScrollable = false
     }
     
     /// show navigation bar
@@ -101,9 +109,17 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
     var maxDelay: CGFloat = 0
     var shouldScrollWhenContentFits: Bool = false
     /**
+     Determines if the navbar should expand once the application becomes active after entering background
+     Defaults to `true`
+     */
+    var expandOnActive = true
+    /**
      An array of `UIView`s that will follow the navbar
      */
     var followers: [UIView] = []
+    
+    var previousState: NLNavigationBarState = .expanded
+    
     weak var delegate: NLNavigationBarScrollingDelegate?
     
     var scrollView: UIScrollView? {
@@ -135,6 +151,14 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         return gesture
     }()
     
+    override init() {
+        super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRotate(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
     
     // MARK: - GestureRecognizer
     
@@ -157,6 +181,7 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
         if gestureRecognizer == panGesture {
             return true
         }
@@ -332,8 +357,6 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         guard let scrollableView = scrollView,
             let navigationBar = navigationController?.navigationBar else { return }
         
-        print("scrollView.contentOffset:\(scrollableView.contentOffset.y), delta:\(delta)")
-        
         if delta == 0 {
             return
         }
@@ -372,14 +395,23 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         duration = TimeInterval(abs(distance * 0.2))
         
         delayDistance = maxDelay
-        print("partial scroll detla:\(delta)")
+        
+        var overlay: UIView?
+        if #available(iOS 10.0, *) {
+            overlay = UIView()
+            overlay?.frame = navigationBar.bounds
+            overlay?.backgroundColor = navigationBar.barTintColor
+            navigationBar.insertSubview(overlay!, at: 0)
+        }
         
         UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
             self.updateSizing(delta)
             self.restoreContentOffset(delta)
             self.updateFollowers(delta)
             self.updateNavbarAlpha()
-        }, completion: nil)
+        }, completion: { (finish) in
+            overlay?.removeFromSuperview()
+        })
     }
     
     private func updateNavbarAlpha() {
@@ -462,6 +494,27 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
     
     deinit {
         print("\(self.classForCoder) \(#function)")
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc func didRotate(_ notification: Notification) {
+        showNavbar()
+    }
+    
+    @objc func didBecomeActive(_ notification: Notification) {
+        if expandOnActive {
+            showNavbar(animated: false)
+        } else {
+            if previousState == .collapsed {
+                hideNavbar(animated: false)
+            }
+        }
+    }
+    
+    @objc func willResignActive(_ notification: Notification) {
+        previousState = state
     }
 }
 

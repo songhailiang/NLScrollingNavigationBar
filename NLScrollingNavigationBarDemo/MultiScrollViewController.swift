@@ -14,6 +14,9 @@ class MultiScrollViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var leftTable: UITableView!
     @IBOutlet weak var rightTable: UITableView!
+    
+    var currentIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,16 +27,25 @@ class MultiScrollViewController: UIViewController {
         
         navigationItem.title = "Multi ScrollView Demo"
         navigationController?.navigationBar.isTranslucent = false
-        
-        scrollToIndex(0)
     }
 
     func scrollToIndex(_ index: Int) {
+        currentIndex = index
         if index == 0 {
             navigationController?.nl_followScrollView(leftTable, followers: [], delegate: self)
         } else {
             navigationController?.nl_followScrollView(rightTable, followers: [], delegate: self)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scrollToIndex(currentIndex)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.nl_stopFollowScrollView()
     }
 }
 
@@ -63,6 +75,13 @@ extension MultiScrollViewController: UITableViewDelegate {
             
             scrollToIndex(index)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: "nobar", sender: nil)
+//        navigationController?.nl_showNavigationBar()
     }
 }
 

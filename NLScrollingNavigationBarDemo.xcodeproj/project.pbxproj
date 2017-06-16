@@ -17,6 +17,7 @@
 		F150DB7F1EEA729200D3760A /* NLScrollingNavigationBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F150DB771EEA729200D3760A /* NLScrollingNavigationBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F150DB861EEA72B600D3760A /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150DB851EEA72B600D3760A /* ScrollViewController.swift */; };
 		F150DB871EEA772900D3760A /* NLScrollingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150DB701EEA727700D3760A /* NLScrollingNavigationBar.swift */; };
+		F1AC21A31EF37E2C006977C7 /* NoNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */; };
 		F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		F150DB791EEA729200D3760A /* NLScrollingNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NLScrollingNavigationBar.h; sourceTree = "<group>"; };
 		F150DB7A1EEA729200D3760A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F150DB851EEA72B600D3760A /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
+		F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNavigationBarController.swift; sourceTree = "<group>"; };
 		F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiScrollViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				F150DB691EEA71CC00D3760A /* Info.plist */,
 				F150DB851EEA72B600D3760A /* ScrollViewController.swift */,
 				F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */,
+				F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */,
 			);
 			path = NLScrollingNavigationBarDemo;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F150DB601EEA71CC00D3760A /* ViewController.swift in Sources */,
+				F1AC21A31EF37E2C006977C7 /* NoNavigationBarController.swift in Sources */,
 				F150DB861EEA72B600D3760A /* ScrollViewController.swift in Sources */,
 				F150DB5E1EEA71CC00D3760A /* AppDelegate.swift in Sources */,
 				F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */,

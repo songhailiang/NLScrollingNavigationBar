@@ -111,11 +111,43 @@
                         <outlet property="leftTable" destination="hDq-qc-Bd2" id="YIb-4s-DQD"/>
                         <outlet property="rightTable" destination="hh3-ba-13v" id="Wy1-2V-4Mp"/>
                         <outlet property="scrollView" destination="wBk-B4-gT5" id="LYk-7i-5Ja"/>
+                        <segue destination="DH3-O7-ryf" kind="show" identifier="nobar" id="QnJ-Od-Rsm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ffg-Uh-rH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009" y="956"/>
+            <point key="canvasLocation" x="2143" y="940"/>
+        </scene>
+        <!--No Navigation Bar Controller-->
+        <scene sceneID="bMc-kB-pVI">
+            <objects>
+                <viewController id="DH3-O7-ryf" customClass="NoNavigationBarController" customModule="NLScrollingNavigationBarDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="35Z-EL-7rs"/>
+                        <viewControllerLayoutGuide type="bottom" id="RQ7-uq-MW7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EaX-lJ-gJy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVG-Yb-kam">
+                                <rect key="frame" x="172.5" y="318.5" width="30" height="30"/>
+                                <state key="normal" title="Pop"/>
+                                <connections>
+                                    <action selector="popAction:" destination="DH3-O7-ryf" eventType="touchUpInside" id="n2t-An-gdT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dVG-Yb-kam" firstAttribute="centerY" secondItem="EaX-lJ-gJy" secondAttribute="centerY" id="J20-wZ-DXK"/>
+                            <constraint firstItem="dVG-Yb-kam" firstAttribute="centerX" secondItem="EaX-lJ-gJy" secondAttribute="centerX" id="Jny-C7-XV8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MY8-Gm-36x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2940" y="940"/>
         </scene>
         <!--Scroll View Controller-->
         <scene sceneID="Phq-ce-LF9">
