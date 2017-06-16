@@ -19,6 +19,12 @@ public enum NLNavigationBarState {
     case collapsed, expanded, scrolling
 }
 
+public protocol NLNavigationBarScrollingDelegate: class {
+    func navigationBarWillChangeState(_ state: NLNavigationBarState)
+    func navigationBarDidChangeState(_ state: NLNavigationBarState)
+    func navigationBarDidChangeFrame(delta: CGFloat)
+}
+
 public extension UINavigationController {
     
     /// enable the navigation bar scrollable
@@ -35,10 +41,12 @@ public extension UINavigationController {
     /// observing a scrollView to scrolling the navigation bar
     ///
     /// - Parameter scrollView: scrollView to observing
-    public func nl_followScrollView(_ scrollView: UIScrollView) {
+    public func nl_followScrollView(_ scrollView: UIScrollView, followers: [UIView] = [], delegate: NLNavigationBarScrollingDelegate? = nil) {
         let proxy = self.proxy
         proxy.navigationController = self
         proxy.scrollView = scrollView
+        proxy.followers = followers
+        proxy.delegate = delegate
         //        self.proxy = proxy
     }
     
@@ -64,11 +72,11 @@ public extension UINavigationController {
 
 extension UINavigationController {
     
-    fileprivate var proxy: NavigationBarScrollableProxy {
+    fileprivate var proxy: NavigationBarScrollingProxy {
         get {
-            var proxy = objc_getAssociatedObject(self, &Key.proxyKey) as? NavigationBarScrollableProxy
+            var proxy = objc_getAssociatedObject(self, &Key.proxyKey) as? NavigationBarScrollingProxy
             if proxy == nil {
-                proxy = NavigationBarScrollableProxy()
+                proxy = NavigationBarScrollingProxy()
                 objc_setAssociatedObject(self, &Key.proxyKey, proxy, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
             return proxy!
@@ -83,7 +91,7 @@ extension UINavigationController {
     }
 }
 
-fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDelegate {
+fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDelegate {
     
     weak var navigationController: UINavigationController?
     
@@ -92,6 +100,11 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
     var delayDistance: CGFloat = 0
     var maxDelay: CGFloat = 0
     var shouldScrollWhenContentFits: Bool = false
+    /**
+     An array of `UIView`s that will follow the navbar
+     */
+    var followers: [UIView] = []
+    weak var delegate: NLNavigationBarScrollingDelegate?
     
     var scrollView: UIScrollView? {
         didSet {
@@ -102,8 +115,16 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
     }
     
     var state: NLNavigationBarState = .expanded {
+        willSet {
+            if state != newValue {
+                delegate?.navigationBarWillChangeState(newValue)
+            }
+        }
         didSet {
             navigationController?.navigationBar.isUserInteractionEnabled = (state == .expanded)
+            if state != oldValue {
+                delegate?.navigationBarDidChangeState(state)
+            }
         }
     }
     
@@ -282,8 +303,8 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
             updateSizing(scrollDelta)
             updateNavbarAlpha()
             restoreContentOffset(scrollDelta)
+            updateFollowers(scrollDelta)
         }
-        //        updateFollowers(scrollDelta)
     }
     
     private func updateSizing(_ delta: CGFloat) {
@@ -300,6 +321,10 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
             frame.origin = CGPoint(x: frame.origin.x, y: navBarY)
             frame.size = CGSize(width: frame.size.width, height: navigationController!.view.frame.size.height - (navBarY) - tabBarOffset)
             topViewController.view.frame = frame
+        }
+        
+        if delta != 0 {
+            delegate?.navigationBarDidChangeFrame(delta: -delta)
         }
     }
     
@@ -352,7 +377,7 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
         UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
             self.updateSizing(delta)
             self.restoreContentOffset(delta)
-            //            self.updateFollowers(delta)
+            self.updateFollowers(delta)
             self.updateNavbarAlpha()
         }, completion: nil)
     }
@@ -400,6 +425,10 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
         }
     }
     
+    private func updateFollowers(_ delta: CGFloat) {
+        followers.forEach { $0.transform = $0.transform.translatedBy(x: 0, y: -delta) }
+    }
+    
     // MARK: - Size
     
     var fullNavbarHeight: CGFloat {
@@ -434,5 +463,11 @@ fileprivate class NavigationBarScrollableProxy: NSObject, UIGestureRecognizerDel
     deinit {
         print("\(self.classForCoder) \(#function)")
     }
+}
+
+public extension NLNavigationBarScrollingDelegate {
+    func navigationBarWillChangeState(_ state: NLNavigationBarState) {}
+    func navigationBarDidChangeState(_ state: NLNavigationBarState) {}
+    func navigationBarDidChangeFrame(delta: CGFloat) {}
 }
 

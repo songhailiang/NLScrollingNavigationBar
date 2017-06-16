@@ -17,6 +17,7 @@
 		F150DB7F1EEA729200D3760A /* NLScrollingNavigationBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F150DB771EEA729200D3760A /* NLScrollingNavigationBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F150DB861EEA72B600D3760A /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150DB851EEA72B600D3760A /* ScrollViewController.swift */; };
 		F150DB871EEA772900D3760A /* NLScrollingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150DB701EEA727700D3760A /* NLScrollingNavigationBar.swift */; };
+		F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		F150DB791EEA729200D3760A /* NLScrollingNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NLScrollingNavigationBar.h; sourceTree = "<group>"; };
 		F150DB7A1EEA729200D3760A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F150DB851EEA72B600D3760A /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
+		F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiScrollViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				F150DB661EEA71CC00D3760A /* LaunchScreen.storyboard */,
 				F150DB691EEA71CC00D3760A /* Info.plist */,
 				F150DB851EEA72B600D3760A /* ScrollViewController.swift */,
+				F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */,
 			);
 			path = NLScrollingNavigationBarDemo;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				F150DB601EEA71CC00D3760A /* ViewController.swift in Sources */,
 				F150DB861EEA72B600D3760A /* ScrollViewController.swift in Sources */,
 				F150DB5E1EEA71CC00D3760A /* AppDelegate.swift in Sources */,
+				F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +483,7 @@
 				F150DB821EEA729200D3760A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
