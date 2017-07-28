@@ -48,7 +48,6 @@ public extension UINavigationController {
         proxy.followers = followers
         proxy.delegate = delegate
         proxy.navBarScrollable = true
-        //        self.proxy = proxy
     }
     
     public func nl_stopFollowScrollView(showingNavBar: Bool = true) {
@@ -192,6 +191,15 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         return navBarScrollable
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if otherGestureRecognizer.view != scrollView {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - Scroll Methods
     
     func showNavbar(animated: Bool = true, duration: TimeInterval = 0.1) {
@@ -326,10 +334,10 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         
         if scrollDelta < 0 || (scrollDelta > 0 && !isBouncingTop) {
             updateSizing(scrollDelta)
-            updateNavbarAlpha()
             restoreContentOffset(scrollDelta)
             updateFollowers(scrollDelta)
         }
+        updateNavbarAlpha()
     }
     
     private func updateSizing(_ delta: CGFloat) {
@@ -342,10 +350,8 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         // Resize the view if the navigation bar is not translucent
         if !navigationBar.isTranslucent {
             let navBarY = navigationBar.frame.origin.y + navigationBar.frame.size.height
-            var frame = topViewController.view.frame
-            frame.origin = CGPoint(x: frame.origin.x, y: navBarY)
-            frame.size = CGSize(width: frame.size.width, height: navigationController!.view.frame.size.height - (navBarY) - tabBarOffset)
-            topViewController.view.frame = frame
+            topViewController.view.frame.origin.y = navBarY
+            topViewController.view.frame.size.height = navigationController!.view.frame.size.height - navBarY - tabBarOffset
         }
         
         if delta != 0 {
