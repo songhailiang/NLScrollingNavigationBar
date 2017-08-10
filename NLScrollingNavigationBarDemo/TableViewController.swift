@@ -21,7 +21,11 @@ class TableViewController: UIViewController {
         table.dataSource = self
         
         navigationItem.title = "Tableview Demo"
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
+        
+//        if let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+//            statusBar.backgroundColor = UIColor(red:0.17, green:0.59, blue:0.87, alpha:1)
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

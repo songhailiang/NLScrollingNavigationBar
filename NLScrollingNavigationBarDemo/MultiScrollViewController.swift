@@ -28,7 +28,15 @@ class MultiScrollViewController: UIViewController {
         navigationItem.title = "Multi ScrollView Demo"
         navigationController?.navigationBar.isTranslucent = false
     }
-
+    
+    deinit {
+        print("\(self.classForCoder) \(#function)")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("\(self.classForCoder) \(#function)")
+    }
+    
     func scrollToIndex(_ index: Int) {
         currentIndex = index
         if index == 0 {

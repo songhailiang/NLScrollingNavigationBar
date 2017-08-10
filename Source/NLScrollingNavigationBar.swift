@@ -336,8 +336,8 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
             updateSizing(scrollDelta)
             restoreContentOffset(scrollDelta)
             updateFollowers(scrollDelta)
+            updateNavbarAlpha()
         }
-        updateNavbarAlpha()
     }
     
     private func updateSizing(_ delta: CGFloat) {
@@ -386,6 +386,8 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         var duration = TimeInterval(0)
         var delta = CGFloat(0.0)
         
+        var overlay: UIView?
+        
         // Scroll back down
         let threshold = statusBarHeight - (frame.size.height / 2)
         if navigationBar.frame.origin.y >= threshold {
@@ -395,6 +397,13 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
             // Scroll up
             delta = frame.origin.y + deltaLimit
             state = .collapsed
+            
+            if #available(iOS 10.0, *) {
+                overlay = UIView()
+                overlay?.frame = navigationBar.bounds
+                overlay?.backgroundColor = navigationBar.barTintColor?.withAlphaComponent(0.9)
+                navigationBar.insertSubview(overlay!, at: 0)
+            }
         }
         
         let distance = delta / (frame.size.height / 2)
@@ -402,15 +411,7 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
         
         delayDistance = maxDelay
         
-        var overlay: UIView?
-        if #available(iOS 10.0, *) {
-            overlay = UIView()
-            overlay?.frame = navigationBar.bounds
-            overlay?.backgroundColor = navigationBar.barTintColor
-            navigationBar.insertSubview(overlay!, at: 0)
-        }
-        
-        UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
+        UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.layoutSubviews, animations: {
             self.updateSizing(delta)
             self.restoreContentOffset(delta)
             self.updateFollowers(delta)
@@ -495,7 +496,11 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
     
     var isBouncingTop: Bool {
         guard let scrollableView = scrollView else { return false }
-        return scrollableView.contentOffset.y + scrollableView.contentInset.top < 0
+        let topInset = scrollableView.contentInset.top
+//        if #available(iOS 11.0, *) {
+//            topInset = scrollableView.adjustedContentInset.top
+//        }
+        return scrollableView.contentOffset.y + topInset < 0
     }
     
     deinit {
@@ -507,6 +512,7 @@ fileprivate class NavigationBarScrollingProxy: NSObject, UIGestureRecognizerDele
     
     @objc func didRotate(_ notification: Notification) {
         showNavbar()
+        updateNavbarAlpha()
     }
     
     @objc func didBecomeActive(_ notification: Notification) {
