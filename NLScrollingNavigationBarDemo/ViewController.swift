@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var table: UITableView!
     
-    let demos = ["ScrollView", "MultiScrollView", "TableView"]
+    let demos = ["ScrollView", "MultiScrollView", "TableView", "ChildController"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

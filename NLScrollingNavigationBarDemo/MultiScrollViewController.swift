@@ -11,6 +11,7 @@ import NLScrollingNavigationBar
 
 class MultiScrollViewController: UIViewController {
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var leftTable: UITableView!
     @IBOutlet weak var rightTable: UITableView!
@@ -53,6 +54,11 @@ class MultiScrollViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.nl_showNavigationBar()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         navigationController?.nl_stopFollowScrollView()
     }
 }
@@ -94,13 +100,5 @@ extension MultiScrollViewController: UITableViewDelegate {
 }
 
 extension MultiScrollViewController: NLNavigationBarScrollingDelegate {
-    
-    func navigationBarDidChangeFrame(delta: CGFloat) {
-//        print("navigationBarDidChangeFrame1: \(self.scrollView.frame.size.height)")
-//        self.scrollView.frame.size.height -= 2 * delta
-//        print("navigationBarDidChangeFrame: \(delta)")
-//        print("navigationBarDidChangeFrame2: \(self.scrollView.frame.size.height)")
-//        self.scrollView.setNeedsLayout()
-//        self.scrollView.layoutIfNeeded()
-    }
+
 }

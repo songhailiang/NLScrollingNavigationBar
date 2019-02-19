@@ -20,6 +20,8 @@
 		F1AC21A31EF37E2C006977C7 /* NoNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */; };
 		F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */; };
 		F1C24EF71F2AE31D001DC203 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C24EF61F2AE31D001DC203 /* TableViewController.swift */; };
+		F1DA4DB31F3C53A4004424D1 /* ChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DA4DB21F3C53A4004424D1 /* ChildController.swift */; };
+		F1DA4DB51F3C5461004424D1 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DA4DB41F3C5461004424D1 /* UIView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNavigationBarController.swift; sourceTree = "<group>"; };
 		F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiScrollViewController.swift; sourceTree = "<group>"; };
 		F1C24EF61F2AE31D001DC203 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F1DA4DB21F3C53A4004424D1 /* ChildController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildController.swift; sourceTree = "<group>"; };
+		F1DA4DB41F3C5461004424D1 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		F150DB5C1EEA71CC00D3760A /* NLScrollingNavigationBarDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F1DA4DB41F3C5461004424D1 /* UIView+Layout.swift */,
 				F150DB5D1EEA71CC00D3760A /* AppDelegate.swift */,
 				F150DB5F1EEA71CC00D3760A /* ViewController.swift */,
 				F150DB611EEA71CC00D3760A /* Main.storyboard */,
@@ -115,6 +120,7 @@
 				F1B3FD641EF2701A00BEAD34 /* MultiScrollViewController.swift */,
 				F1AC21A21EF37E2C006977C7 /* NoNavigationBarController.swift */,
 				F1C24EF61F2AE31D001DC203 /* TableViewController.swift */,
+				F1DA4DB21F3C53A4004424D1 /* ChildController.swift */,
 			);
 			path = NLScrollingNavigationBarDemo;
 			sourceTree = "<group>";
@@ -199,10 +205,12 @@
 				TargetAttributes = {
 					F150DB591EEA71CC00D3760A = {
 						CreatedOnToolsVersion = 8.3.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					F150DB761EEA729200D3760A = {
 						CreatedOnToolsVersion = 8.3.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -251,10 +259,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1DA4DB51F3C5461004424D1 /* UIView+Layout.swift in Sources */,
 				F150DB601EEA71CC00D3760A /* ViewController.swift in Sources */,
 				F1C24EF71F2AE31D001DC203 /* TableViewController.swift in Sources */,
 				F1AC21A31EF37E2C006977C7 /* NoNavigationBarController.swift in Sources */,
 				F150DB861EEA72B600D3760A /* ScrollViewController.swift in Sources */,
+				F1DA4DB31F3C53A4004424D1 /* ChildController.swift in Sources */,
 				F150DB5E1EEA71CC00D3760A /* AppDelegate.swift in Sources */,
 				F1B3FD651EF2701A00BEAD34 /* MultiScrollViewController.swift in Sources */,
 			);
@@ -402,7 +412,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shl.NLScrollingNavigationBarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -415,7 +426,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shl.NLScrollingNavigationBarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -435,7 +447,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shl.NLScrollingNavigationBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -457,7 +470,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shl.NLScrollingNavigationBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

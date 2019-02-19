@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VI0-Sy-lM3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VI0-Sy-lM3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -44,6 +44,7 @@
                         <segue destination="Tih-eW-HYU" kind="show" identifier="ScrollView" id="1uN-RZ-oWz"/>
                         <segue destination="c53-vO-vl8" kind="show" identifier="MultiScrollView" id="AVX-6q-QeI"/>
                         <segue destination="M9v-XY-ea5" kind="show" identifier="TableView" id="Lq2-1O-4lw"/>
+                        <segue destination="8wH-tM-f6U" kind="show" identifier="ChildController" id="AQW-K1-FJ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -62,53 +63,76 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBk-B4-gT5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2U-Re-e1W" userLabel="Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hDq-qc-Bd2" userLabel="Table Left">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7cK-Gf-Q4g" userLabel="Header View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Mp5-Fg-ZBc"/>
+                                        </constraints>
+                                    </view>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBk-B4-gT5">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hDq-qc-Bd2" userLabel="Table Left">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="c53-vO-vl8" id="hwk-EF-4yC"/>
+                                                    <outlet property="delegate" destination="c53-vO-vl8" id="BFu-Wj-rJN"/>
+                                                </connections>
+                                            </tableView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hh3-ba-13v" userLabel="Table Right">
+                                                <rect key="frame" x="375" y="0.0" width="375" height="617"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="c53-vO-vl8" id="JY7-0e-qjt"/>
+                                                    <outlet property="delegate" destination="c53-vO-vl8" id="ghG-N8-q4E"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="leading" secondItem="wBk-B4-gT5" secondAttribute="leading" id="7h4-2m-pLT"/>
+                                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="top" secondItem="wBk-B4-gT5" secondAttribute="top" id="9LZ-KH-ZYC"/>
+                                            <constraint firstItem="hh3-ba-13v" firstAttribute="leading" secondItem="hDq-qc-Bd2" secondAttribute="trailing" id="9bU-21-HRC"/>
+                                            <constraint firstAttribute="bottom" secondItem="hh3-ba-13v" secondAttribute="bottom" id="BRv-zT-RKj"/>
+                                            <constraint firstAttribute="trailing" secondItem="hh3-ba-13v" secondAttribute="trailing" id="NHw-ec-wUZ"/>
+                                            <constraint firstItem="hh3-ba-13v" firstAttribute="top" secondItem="wBk-B4-gT5" secondAttribute="top" id="gCf-67-w5L"/>
+                                            <constraint firstItem="hh3-ba-13v" firstAttribute="width" secondItem="hDq-qc-Bd2" secondAttribute="width" id="iPI-3V-mKR"/>
+                                            <constraint firstAttribute="bottom" secondItem="hDq-qc-Bd2" secondAttribute="bottom" id="rxe-nB-iaV"/>
+                                        </constraints>
                                         <connections>
-                                            <outlet property="dataSource" destination="c53-vO-vl8" id="hwk-EF-4yC"/>
-                                            <outlet property="delegate" destination="c53-vO-vl8" id="BFu-Wj-rJN"/>
+                                            <outlet property="delegate" destination="c53-vO-vl8" id="sVd-eH-CcP"/>
                                         </connections>
-                                    </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hh3-ba-13v" userLabel="Table Right">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="667"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="c53-vO-vl8" id="JY7-0e-qjt"/>
-                                            <outlet property="delegate" destination="c53-vO-vl8" id="ghG-N8-q4E"/>
-                                        </connections>
-                                    </tableView>
+                                    </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="hDq-qc-Bd2" firstAttribute="leading" secondItem="wBk-B4-gT5" secondAttribute="leading" id="7h4-2m-pLT"/>
-                                    <constraint firstItem="hDq-qc-Bd2" firstAttribute="top" secondItem="wBk-B4-gT5" secondAttribute="top" id="9LZ-KH-ZYC"/>
-                                    <constraint firstItem="hh3-ba-13v" firstAttribute="leading" secondItem="hDq-qc-Bd2" secondAttribute="trailing" id="9bU-21-HRC"/>
-                                    <constraint firstAttribute="bottom" secondItem="hh3-ba-13v" secondAttribute="bottom" id="BRv-zT-RKj"/>
-                                    <constraint firstAttribute="trailing" secondItem="hh3-ba-13v" secondAttribute="trailing" id="NHw-ec-wUZ"/>
-                                    <constraint firstItem="hh3-ba-13v" firstAttribute="top" secondItem="wBk-B4-gT5" secondAttribute="top" id="gCf-67-w5L"/>
-                                    <constraint firstItem="hh3-ba-13v" firstAttribute="width" secondItem="hDq-qc-Bd2" secondAttribute="width" id="iPI-3V-mKR"/>
-                                    <constraint firstAttribute="bottom" secondItem="hDq-qc-Bd2" secondAttribute="bottom" id="rxe-nB-iaV"/>
+                                    <constraint firstAttribute="trailing" secondItem="wBk-B4-gT5" secondAttribute="trailing" id="6as-He-19I"/>
+                                    <constraint firstAttribute="trailing" secondItem="7cK-Gf-Q4g" secondAttribute="trailing" id="9c4-V2-5eH"/>
+                                    <constraint firstAttribute="bottom" secondItem="wBk-B4-gT5" secondAttribute="bottom" id="BeB-t0-S29"/>
+                                    <constraint firstItem="7cK-Gf-Q4g" firstAttribute="top" secondItem="x2U-Re-e1W" secondAttribute="top" id="JGQ-62-Gos"/>
+                                    <constraint firstItem="wBk-B4-gT5" firstAttribute="top" secondItem="7cK-Gf-Q4g" secondAttribute="bottom" id="YMl-ZQ-Q0h"/>
+                                    <constraint firstItem="7cK-Gf-Q4g" firstAttribute="leading" secondItem="x2U-Re-e1W" secondAttribute="leading" id="aBT-WL-Tce"/>
+                                    <constraint firstItem="wBk-B4-gT5" firstAttribute="leading" secondItem="x2U-Re-e1W" secondAttribute="leading" id="fGy-wZ-Gv6"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="c53-vO-vl8" id="sVd-eH-CcP"/>
-                                </connections>
-                            </scrollView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wBk-B4-gT5" firstAttribute="leading" secondItem="Lnw-DT-G38" secondAttribute="leading" id="8Xi-UJ-UIp"/>
-                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="height" secondItem="Lnw-DT-G38" secondAttribute="height" id="anb-zn-jlX"/>
-                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="width" secondItem="Lnw-DT-G38" secondAttribute="width" id="cTo-Gl-gxL"/>
-                            <constraint firstAttribute="bottom" secondItem="wBk-B4-gT5" secondAttribute="bottom" id="fXY-RX-u04"/>
-                            <constraint firstItem="wBk-B4-gT5" firstAttribute="top" secondItem="Lnw-DT-G38" secondAttribute="top" id="oug-Me-GiL"/>
-                            <constraint firstAttribute="trailing" secondItem="wBk-B4-gT5" secondAttribute="trailing" id="qCu-OZ-kdL"/>
+                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="width" secondItem="Lnw-DT-G38" secondAttribute="width" id="TZ2-b8-PnP"/>
+                            <constraint firstItem="hDq-qc-Bd2" firstAttribute="height" secondItem="Lnw-DT-G38" secondAttribute="height" constant="-50" id="W7l-8u-Yc6"/>
+                            <constraint firstAttribute="trailing" secondItem="x2U-Re-e1W" secondAttribute="trailing" id="XIC-df-M1r"/>
+                            <constraint firstItem="x2U-Re-e1W" firstAttribute="top" secondItem="Lnw-DT-G38" secondAttribute="top" id="cy1-69-0rt"/>
+                            <constraint firstItem="x2U-Re-e1W" firstAttribute="leading" secondItem="Lnw-DT-G38" secondAttribute="leading" id="gvu-aQ-QvW"/>
+                            <constraint firstAttribute="bottom" secondItem="x2U-Re-e1W" secondAttribute="bottom" id="wQ5-aP-AoF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headerView" destination="7cK-Gf-Q4g" id="Kon-Gw-OUd"/>
                         <outlet property="leftTable" destination="hDq-qc-Bd2" id="YIb-4s-DQD"/>
                         <outlet property="rightTable" destination="hh3-ba-13v" id="Wy1-2V-4Mp"/>
                         <outlet property="scrollView" destination="wBk-B4-gT5" id="LYk-7i-5Ja"/>
@@ -117,12 +141,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ffg-Uh-rH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2143" y="940"/>
+            <point key="canvasLocation" x="2141.5999999999999" y="939.58020989505258"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="auQ-9y-TDj">
             <objects>
-                <viewController id="M9v-XY-ea5" customClass="TableViewController" customModule="NLScrollingNavigationBarDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewController" id="M9v-XY-ea5" customClass="TableViewController" customModule="NLScrollingNavigationBarDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rLJ-fV-Duk"/>
                         <viewControllerLayoutGuide type="bottom" id="WAp-pW-RLs"/>
@@ -151,6 +175,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5O3-U1-JrQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2127" y="1644"/>
+        </scene>
+        <!--Child Controller-->
+        <scene sceneID="nuV-Ss-Y0r">
+            <objects>
+                <viewController id="8wH-tM-f6U" customClass="ChildController" customModule="NLScrollingNavigationBarDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AuS-r8-pWW"/>
+                        <viewControllerLayoutGuide type="bottom" id="bOV-mY-sTF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vRX-yF-n3L">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FnW-eQ-rsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2236" y="2415"/>
         </scene>
         <!--No Navigation Bar Controller-->
         <scene sceneID="bMc-kB-pVI">
